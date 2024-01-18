@@ -71,70 +71,70 @@ Encountering the notorious 502 Bad Gateway Nginx error? Fear not! Here's a step-
 
 Ensure Nginx is up and running:
 
-```bash
+~ bash
 systemctl status nginx
 If Nginx is inactive, start it:
 
-``` bash
+~ bash
 Copy code
 sudo systemctl start nginx
-2. Check the Backend Server Status
+## 2. Check the Backend Server Status
 Verify the backend server's health:
 
-``` bash
+~  bash
 Copy code
 curl -I http://backend-server-ip-address/
 Replace "backend-server-ip-address" with your backend server's IP. A "200 OK" status indicates a healthy backend.
 
-3. Check the DNS Configuration
+## 3. Check the DNS Configuration
 Verify DNS settings:
 
-```` bash
+~  bash
 Copy code
 nslookup backend-server-domain-name
 Replace "backend-server-domain-name" with your backend server's domain. Confirm the IP aligns with expectations.
 
-4. Check the Firewall Configuration
+## 4. Check the Firewall Configuration
 Temporarily disable the firewall and observe:
-``` markdown
+~ markdown
 Copy code
 :warning: **Caution:** This step is for diagnostic purposes only. Exercise care when modifying firewall settings.
-5. Increase the Buffer Size
+## 5. Increase the Buffer Size
 Empower Nginx with a larger buffer:
 
-``` nginx
+~ nginx
 Copy code
 proxy_buffer_size 16k;
 proxy_buffers 32 16k;
 Experiment cautiously to find the optimal balance.
 
-6. Restart Nginx Server
+## 6. Restart Nginx Server
 A graceful restart might work wonders:
 
 Ubuntu/Debian:
 
-``` bash
+~ bash
 Copy code
 sudo service nginx restart
 CentOS/Fedora/RHEL:
 
-``` bash
+~ bash
 Copy code
 sudo systemctl restart nginx
 macOS:
 
-``` bash
+~ bash
 Copy code
 sudo nginx -s reload
-7. Check PHP-FPM Status
+## 7. Check PHP-FPM Status
 Ensure PHP-FPM is active:
 
-``` bash
+~ bash
 Copy code
 sudo service php-fpm status
 Restart PHP-FPM if needed:
 
-``` bash
+~ bash
 Copy code
 sudo service php-fpm restart
 With these steps, you're ready to combat the 502 Bad Gateway Nginx error and ensure a seamless web experience. Happy troubleshooting!
