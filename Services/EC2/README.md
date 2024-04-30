@@ -1,4 +1,4 @@
-#!/bin/bash
+# /bin/bash
 
 # Create EC2 directory
 mkdir -p "Amazon Elastic Compute Cloud (EC2)"
