@@ -55,3 +55,72 @@ Happy learning!
 EOF
 
 echo "EC2 directory structure and README.md files created successfully!"
+
+# AWS CLI Example - Creating and Deploying a Lambda Function:
+#!/bin/bash
+
+# Set variables
+FUNCTION_NAME="my-lambda-function"
+HANDLER="lambda_function.handler"
+ROLE_ARN="arn:aws:iam::123456789012:role/lambda-role"  # Replace with your IAM role ARN
+ZIP_FILE="lambda_function.zip"
+
+# Create Lambda function deployment package
+zip -r $ZIP_FILE lambda_function.py
+
+# Create Lambda function
+aws lambda create-function \
+    --function-name $FUNCTION_NAME \
+    --runtime python3.8 \
+    --role $ROLE_ARN \
+    --handler $HANDLER \
+    --zip-file fileb://$ZIP_FILE
+
+# Invoke Lambda function
+aws lambda invoke \
+    --function-name $FUNCTION_NAME \
+    --payload '{"key1": "value1", "key2": "value2"}' \
+    output.json
+
+# Display output
+cat output.json
+
+## Python Example - Creating and Deploying a Lambda Function with Boto3:
+
+import boto3
+import zipfile
+import os
+
+# Set variables
+FUNCTION_NAME = 'my-lambda-function'
+HANDLER = 'lambda_function.handler'
+ROLE_ARN = 'arn:aws:iam::123456789012:role/lambda-role'  # Replace with your IAM role ARN
+ZIP_FILE = 'lambda_function.zip'
+
+# Create Lambda deployment package
+with zipfile.ZipFile(ZIP_FILE, 'w') as zip:
+    zip.write('lambda_function.py')
+
+# Create Lambda client
+lambda_client = boto3.client('lambda')
+
+# Create Lambda function
+with open(ZIP_FILE, 'rb') as f:
+    response = lambda_client.create_function(
+        FunctionName=FUNCTION_NAME,
+        Runtime='python3.8',
+        Role=ROLE_ARN,
+        Handler=HANDLER,
+        Code={
+            'ZipFile': f.read()
+        }
+    )
+
+# Invoke Lambda function
+response = lambda_client.invoke(
+    FunctionName=FUNCTION_NAME,
+    Payload=b'{"key1": "value1", "key2": "value2"}'
+)
+
+# Display output
+print(response['Payload'].read().decode('utf-8'))
