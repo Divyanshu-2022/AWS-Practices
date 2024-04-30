@@ -37,3 +37,47 @@ These documents are written in a clear and concise style, with step-by-step inst
 EOF
 
 echo "EC2 directory structure and README.md files created successfully!"
+
+
+# AWS CLI Example - Launching an EC2 Instance:
+
+#!/bin/bash
+
+# Set variables
+AMI_ID="ami-12345678"  # Replace with your desired AMI ID
+INSTANCE_TYPE="t2.micro"  # Replace with your desired instance type
+KEY_NAME="your-key-pair"  # Replace with your key pair name
+SECURITY_GROUP_ID="sg-12345678"  # Replace with your security group ID
+
+# Launch EC2 instance
+aws ec2 run-instances \
+    --image-id $AMI_ID \
+    --instance-type $INSTANCE_TYPE \
+    --key-name $KEY_NAME \
+    --security-group-ids $SECURITY_GROUP_ID \
+    --count 1
+
+# Python Example - Launching an EC2 Instance with Boto3:
+import boto3
+
+# Set variables
+AMI_ID = 'ami-12345678'  # Replace with your desired AMI ID
+INSTANCE_TYPE = 't2.micro'  # Replace with your desired instance type
+KEY_NAME = 'your-key-pair'  # Replace with your key pair name
+SECURITY_GROUP_ID = 'sg-12345678'  # Replace with your security group ID
+
+# Create EC2 client
+ec2_client = boto3.client('ec2')
+
+# Launch EC2 instance
+response = ec2_client.run_instances(
+    ImageId=AMI_ID,
+    InstanceType=INSTANCE_TYPE,
+    KeyName=KEY_NAME,
+    SecurityGroupIds=[SECURITY_GROUP_ID],
+    MinCount=1,
+    MaxCount=1
+)
+
+# Print instance ID
+print("Instance ID:", response['Instances'][0]['InstanceId'])
