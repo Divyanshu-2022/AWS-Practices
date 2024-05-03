@@ -1,3 +1,5 @@
+!GitHub last commit
+
 # AWS Practices Repository
 
 Welcome to the **AWS_practices** repository! Here, you'll find valuable insights and practices related to Amazon Web Services (AWS) to enhance your cloud computing expertise. Whether you're a beginner or an experienced AWS user, this repository aims to provide valuable content and resources.
